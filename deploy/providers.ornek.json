@@ -1,0 +1,30 @@
+{
+  "_not": "Bu dosyayı data/providers.json olarak kopyala, API anahtarlarını kendi anahtarlarınla değiştir. providers.json .gitignore içindedir, repoya girmez.",
+  "providers": {
+    "evren": {
+      "name": "EVREN (SSB)",
+      "baseURL": "https://evren-llmapi.ssyz.org.tr/v1",
+      "apiKey": "BURAYA_EVREN_API_ANAHTARI",
+      "models": [
+        { "model": "glm-5.3", "label": "EVREN GLM 5.3" },
+        { "model": "deepseek-v4-flash", "label": "EVREN DeepSeek V4 Flash" },
+        { "model": "deepseek-v4.1-flash", "label": "EVREN DeepSeek V4.1 Flash (görsel)" },
+        { "model": "mimo-v2.6-pro", "label": "EVREN MiMo 2.6 Pro (görsel)" },
+        { "model": "qwen3-vl-30b", "label": "EVREN Qwen3 VL 30B (görsel)" },
+        { "model": "gemma-4-31b", "label": "EVREN Gemma 4 31B (görsel)" }
+      ]
+    },
+    "nvidia": {
+      "name": "NVIDIA (ücretsiz uç nokta)",
+      "baseURL": "https://integrate.api.nvidia.com/v1",
+      "apiKey": "BURAYA_NVIDIA_API_ANAHTARI",
+      "models": [
+        { "model": "z-ai/glm-5.3-flash", "label": "GLM 5.3 Flash" },
+        { "model": "nvidia/nemotron-3-ultra-550b-a55b", "label": "Nemotron 3 Ultra 550B" },
+        { "model": "nvidia/nemotron-3.5-super-vl-120b-a12b", "label": "Nemotron 3.5 Super VL 120B" },
+        { "model": "nvidia/nemotron-3.5-lightning-30b-a3b", "label": "Nemotron 3.5 Lightning 30B" },
+        { "model": "meta/llama-3.2-11b-vision-instruct", "label": "Llama 3.2 11B Vision" }
+      ]
+    }
+  }
+}

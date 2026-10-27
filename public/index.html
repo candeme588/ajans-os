@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ajans OS</title>
+<link rel="stylesheet" href="/style.css" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>" />
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-mark">AO</span>
+    <div>
+      <div class="brand-name">Ajans OS</div>
+      <div class="brand-sub">tek kişilik şirket paneli</div>
+    </div>
+  </div>
+
+  <div class="top-selects">
+    <label class="field">
+      <span>Şirket</span>
+      <select id="companySelect"></select>
+    </label>
+    <label class="field">
+      <span>Model</span>
+      <select id="modelSelect"></select>
+    </label>
+  </div>
+
+  <div class="top-right">
+    <span class="pill" id="agentCount">— uzman</span>
+    <span class="pill leader-pill" id="leaderPill" title="Müdür (lider) modeli">—</span>
+    <button class="btn ghost" id="probeBtn" title="Tüm modelleri tek tek dene">Modelleri test et</button>
+    <button class="btn ghost" id="editCompanyBtn" title="Bu şirketi düzenle">Şirketi düzenle</button>
+    <button class="btn ghost" id="newCompanyBtn" title="Yeni şirket kur">+ Yeni şirket</button>
+  </div>
+</header>
+
+<main class="layout">
+
+  <!-- SOL: ekip -->
+  <aside class="sidebar">
+    <div class="company-card">
+      <div class="company-emoji" id="companyEmoji">🏢</div>
+      <div>
+        <div class="company-name" id="companyName">—</div>
+        <div class="company-desc" id="companyDesc"></div>
+      </div>
+    </div>
+
+    <div class="side-head">
+      <h2>Ekip</h2>
+      <input class="search" id="teamSearch" placeholder="uzman ara…" />
+    </div>
+    <div class="team-list" id="teamList"></div>
+
+    <div class="side-head">
+      <h2>Geçmiş</h2>
+    </div>
+    <div class="run-list" id="runList"></div>
+  </aside>
+
+  <!-- SAĞ: çalışma alanı -->
+  <section class="workspace">
+    <div class="composer">
+      <div class="composer-head">
+        <span class="composer-label">Müdür'e ne yaptırmak istiyorsun?</span>
+        <span class="hint">Ctrl + Enter ile çalıştır</span>
+      </div>
+      <textarea id="request" rows="4" placeholder="Örnek: Instagram'da karavan sezonu için 1 haftalık reklam planı ve 3 reklam metni hazırla. Bütçe 10.000 TL."></textarea>
+
+      <div class="attachments hidden" id="attachments"></div>
+
+      <div class="composer-actions">
+        <button class="btn ghost small" id="attachBtn" title="Dosya veya görsel ekle">📎 Dosya / görsel</button>
+        <input type="file" id="fileInput" multiple class="hidden" accept="image/*,.txt,.md,.csv,.json,.html,.css,.js,.xml,.yml,.yaml" />
+        <label class="check">
+          <input type="checkbox" id="planOnly" />
+          <span>Sadece planı göster</span>
+        </label>
+        <div class="spacer"></div>
+        <button class="btn ghost" id="planBtn">Planı gör</button>
+        <button class="btn primary" id="runBtn">Çalıştır</button>
+        <button class="btn danger hidden" id="stopBtn">Durdur</button>
+      </div>
+      <div class="drop-hint hidden" id="dropHint">Dosyayı buraya bırak</div>
+    </div>
+
+    <div class="status-line hidden" id="statusLine">
+      <span class="spinner"></span>
+      <span id="statusText">çalışıyor…</span>
+    </div>
+
+    <div class="output" id="output">
+      <div class="empty">
+        <div class="empty-icon">🗂️</div>
+        <h3>Henüz iş yok</h3>
+        <p>Yukarıya ne istediğini yaz. Müdür isteği okuyup ekibinden doğru uzmanları seçer,<br />işi sırayla çalıştırır ve çıktıları burada toplar.</p>
+        <div class="empty-tips">
+          <span>İpucu: bütçe, süre ve hedef belirtirsen plan daha net olur.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Şirket modal -->
+<div class="modal-backdrop hidden" id="modalBackdrop">
+  <div class="modal">
+    <div class="modal-head">
+      <h2 id="modalTitle">Yeni şirket</h2>
+      <button class="icon-btn" id="modalClose">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <label class="field grow">
+          <span>Şirket adı</span>
+          <input id="fName" placeholder="Örn. Kahve Markası" />
+        </label>
+        <label class="field small">
+          <span>Simge</span>
+          <input id="fEmoji" maxlength="4" placeholder="☕" />
+        </label>
+      </div>
+      <label class="field">
+        <span>Kısa açıklama</span>
+        <input id="fDesc" placeholder="Ne satıyor, hangi kanalda, günlük kaç sipariş…" />
+      </label>
+      <label class="field">
+        <span>Şirket notları (uzmanlar her işte bunu görür)</span>
+        <textarea id="fContext" rows="6" placeholder="Fiyat listesi, marka tonu, yasaklı ifadeler, müşteri profili, hedefler…"></textarea>
+      </label>
+      <div class="field">
+        <span>Ekip <em id="pickCount"></em></span>
+        <input class="search" id="pickSearch" placeholder="uzman ara…" style="margin-bottom:8px" />
+        <div class="pick-list" id="pickList"></div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn ghost" id="modalCancel">Vazgeç</button>
+      <button class="btn primary" id="modalSave">Kaydet</button>
+    </div>
+  </div>
+</div>
+
+<!-- Önizleme modal -->
+<div class="preview-backdrop hidden" id="previewBackdrop">
+  <div class="preview-wrap">
+    <div class="preview-bar">
+      <div class="preview-title" id="previewTitle">Önizleme</div>
+      <div class="preview-tools">
+        <button class="btn ghost small" id="pvDevice" title="Mobil / masaüstü">📱 Mobil</button>
+        <button class="btn ghost small" id="pvOpen">Yeni sekmede aç</button>
+        <button class="btn ghost small" id="pvClose">Kapat</button>
+      </div>
+    </div>
+    <div class="preview-frame-wrap" id="previewFrameWrap">
+      <iframe id="previewFrame" sandbox="allow-scripts allow-forms allow-popups" title="Önizleme"></iframe>
+    </div>
+  </div>
+</div>
+
+<script src="/app.js"></script>
+</body>
+</html>

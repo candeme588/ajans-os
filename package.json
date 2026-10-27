@@ -1,0 +1,25 @@
+{
+  "name": "ajans-os",
+  "version": "1.0.0",
+  "description": "Tek kişilik şirket için yapay zekâ ekibi — müdür + uzman ajan mimarisi",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "kontrol": "node kontrol.js"
+  },
+  "keywords": [
+    "ai",
+    "agents",
+    "llm",
+    "agency",
+    "automation",
+    "turkce"
+  ],
+  "author": "",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

@@ -1,0 +1,41 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Başlat (localhost:7777)",
+      "type": "shell",
+      "command": "node server.js",
+      "isBackground": true,
+      "problemMatcher": [],
+      "group": { "kind": "build", "isDefault": true },
+      "presentation": { "reveal": "always", "panel": "dedicated" }
+    },
+    {
+      "label": "Başlat (sunucu modu)",
+      "type": "shell",
+      "command": "node server.js",
+      "options": { "env": { "SUNUCU_MODU": "1", "ADMIN_PASSWORD": "dev-sifre" } },
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "dedicated" }
+    },
+    {
+      "label": "Önizlemeyi kontrol et",
+      "type": "shell",
+      "command": "node kontrol.js",
+      "problemMatcher": []
+    },
+    {
+      "label": "Modelleri test et",
+      "type": "shell",
+      "command": "node -e \"fetch('http://localhost:7777/api/models/probe',{method:'POST'}).then(r=>r.json()).then(j=>console.log('Çalışan:',j.okCount,'/',j.total))\"",
+      "problemMatcher": []
+    },
+    {
+      "label": "Sunucuya gönder (Windows)",
+      "type": "shell",
+      "command": "powershell -ExecutionPolicy Bypass -File deploy/sunucuya-kur.ps1",
+      "problemMatcher": []
+    }
+  ]
+}

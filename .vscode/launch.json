@@ -1,0 +1,45 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Ajans OS — Yerel (localhost:7777)",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/server.js",
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "restart": true,
+      "env": {
+        "PORT": "7777"
+      },
+      "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "name": "Ajans OS — Sunucu modu (0.0.0.0 + şifre)",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/server.js",
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "restart": true,
+      "env": {
+        "PORT": "7777",
+        "SUNUCU_MODU": "1",
+        "ADMIN_PASSWORD": "dev-sifre"
+      },
+      "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "name": "Ajans OS — Farklı port (7788)",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/server.js",
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "env": {
+        "PORT": "7788"
+      },
+      "skipFiles": ["<node_internals>/**"]
+    }
+  ]
+}
